@@ -7,11 +7,7 @@ from ..models.reservations import Reservation
 from ..models.utilisateur import Utilisateur
 from ..models.etudiant import Etudiant
 from ..models.jour import Jour
-<<<<<<< HEAD
-=======
-from ..models.periode import Periode
-from .etudiant_serializer import EtudiantSerializer
->>>>>>> parent of 23a4dc7c ( Annulation d'une réservation)
+
 from .jour_serializer import JourSerializer
 from .periode_serializer import PeriodeSerializer
 from ..models.periode import Periode

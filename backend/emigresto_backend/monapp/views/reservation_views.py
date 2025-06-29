@@ -3,17 +3,11 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from django.utils import timezone
 from datetime import timedelta
-<<<<<<< HEAD
-from ..models.reservations import Reservation
-from ..serializers.reservation_serializer import (
-    ReservationSerializer,
-    ReservationCreateSerializer
-)
-=======
+
 from rest_framework import viewsets, permissions
 from monapp.models.reservations import Reservation
 from monapp.serializers.reservation_serializer import ReservationSerializer, ReservationCreateSerializer
->>>>>>> parent of 23a4dc7c ( Annulation d'une réservation)
+
 
 class ReservationViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
@@ -36,11 +30,7 @@ class ReservationViewSet(viewsets.ModelViewSet):
         return ReservationSerializer
 
     def perform_create(self, serializer):
-<<<<<<< HEAD
-        # on a besoin que le serializer connaisse `request` dans context pour décrémenter
-        serializer.context['request'] = self.request
-        serializer.save()
-=======
+
         etudiant = self.request.user.as_etudiant
         serializer.save(etudiant=etudiant)
->>>>>>> parent of 23a4dc7c ( Annulation d'une réservation)
+

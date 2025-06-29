@@ -70,29 +70,7 @@ const useReservationsData = () => {
   const reservationsMap = useMemo(() => {
     const map = new Map();
     reservationsBrutes.forEach((r) => {
-<<<<<<< HEAD
-      // --- NOUVEAU: Filtrer par statut 'VALIDE' ---
-        const reservationDate = new Date(r.date);
-        reservationDate.setHours(0, 0, 0, 0);
 
-        const targetJourDate = new Date(getReservationDate(r.jour.id));
-        targetJourDate.setHours(0, 0, 0, 0);
-        const keyId = r.reservant_pour.id;
-
-        // Si la réservation correspond au jour de la semaine *actuelle*
-        if (
-          r.jour.id &&
-          r.periode.id &&
-          r.reservant_pour?.id && // Utilisez r.etudiant.id pour l'initiateur
-          reservationDate.getTime() === targetJourDate.getTime()
-        ) {
-          if (!map.has(keyId)) {
-            map.set(keyId, new Map());
-          }
-          // Utilisez une clé unique pour chaque cellule de réservation (jour-période)
-          map.get(keyId).set(`${r.jour.id}-${r.periode.id}`, r); 
-        }
-=======
       // Pour la date de la réservation, nous utilisons la date réelle de la réservation
       // et la comparons avec la date calculée pour la semaine actuelle
       const reservationDate = new Date(r.date);
@@ -116,7 +94,7 @@ const useReservationsData = () => {
         const studentReservations = map.get(r.etudiant.id);
         studentReservations.set(`${r.jour.id}-${r.periode.id}`, r); // Stocke l'objet réservation entier si nécessaire
       }
->>>>>>> parent of 23a4dc7c ( Annulation d'une réservation)
+
     });
     return map;
   }, [reservationsBrutes, getReservationDate]); // Recalculer quand les réservations brutes ou les dates des jours changent
@@ -180,11 +158,9 @@ const useReservationsData = () => {
         } else {
           // Créer une nouvelle réservation
           const newReservationData = {
-<<<<<<< HEAD
-            reservant_pour: etudiantId, // C'est l'ID de l'étudiant initiateur
-=======
+
             etudiant: etudiantId, // C'est l'ID de l'étudiant
->>>>>>> parent of 23a4dc7c ( Annulation d'une réservation)
+            reservant_pour: etudiantId, // Assurez-vous que c'est l'ID de l'étudiant
             jour: jourId,
             periode: periodeId,
             date: reservationDate,
@@ -293,11 +269,10 @@ const useReservationsData = () => {
         periodes.forEach((p) => {
           const key = `${j.id}-${p.id}`; // Clé correcte pour la map de l'étudiant
           const isReserved = reservationsMap.get(e.id)?.has(key);
-<<<<<<< HEAD
           s += isReserved ? "O" : "X";
-=======
+
           s += isReserved ? "✔ " : "✘ ";
->>>>>>> parent of 23a4dc7c ( Annulation d'une réservation)
+
         });
         row.push(s.trim());
       });

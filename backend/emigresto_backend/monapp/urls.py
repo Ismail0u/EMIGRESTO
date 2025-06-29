@@ -43,12 +43,4 @@ urlpatterns = [
 
     # User details endpoint
     path('api/user-details/', user_details_views.UserDetailsAPIView.as_view(), name='user-details'),
-<<<<<<< HEAD
-
-    # Cancel reservation endpoint (now inside the api/ namespace)
-    #path('api/cancel-reservations/', reservation_views.CancelReservationView.as_view(), name='cancel_reservations'), # <--- CORRECTED LINE
-
 ]
-=======
-]
->>>>>>> parent of 23a4dc7c ( Annulation d'une réservation)

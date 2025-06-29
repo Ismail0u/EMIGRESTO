@@ -3,7 +3,6 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from django.utils import timezone
 from datetime import timedelta
-
 from rest_framework import viewsets, permissions
 from monapp.models.reservations import Reservation
 from monapp.serializers.reservation_serializer import ReservationSerializer, ReservationCreateSerializer
@@ -33,4 +32,3 @@ class ReservationViewSet(viewsets.ModelViewSet):
 
         etudiant = self.request.user.as_etudiant
         serializer.save(etudiant=etudiant)
-

@@ -70,7 +70,6 @@ const useReservationsData = () => {
   const reservationsMap = useMemo(() => {
     const map = new Map();
     reservationsBrutes.forEach((r) => {
-
       // Pour la date de la réservation, nous utilisons la date réelle de la réservation
       // et la comparons avec la date calculée pour la semaine actuelle
       const reservationDate = new Date(r.date);
@@ -94,7 +93,6 @@ const useReservationsData = () => {
         const studentReservations = map.get(r.etudiant.id);
         studentReservations.set(`${r.jour.id}-${r.periode.id}`, r); // Stocke l'objet réservation entier si nécessaire
       }
-
     });
     return map;
   }, [reservationsBrutes, getReservationDate]); // Recalculer quand les réservations brutes ou les dates des jours changent
@@ -158,9 +156,7 @@ const useReservationsData = () => {
         } else {
           // Créer une nouvelle réservation
           const newReservationData = {
-
             etudiant: etudiantId, // C'est l'ID de l'étudiant
-            reservant_pour: etudiantId, // Assurez-vous que c'est l'ID de l'étudiant
             jour: jourId,
             periode: periodeId,
             date: reservationDate,
@@ -269,8 +265,6 @@ const useReservationsData = () => {
         periodes.forEach((p) => {
           const key = `${j.id}-${p.id}`; // Clé correcte pour la map de l'étudiant
           const isReserved = reservationsMap.get(e.id)?.has(key);
-          s += isReserved ? "O" : "X";
-
           s += isReserved ? "✔ " : "✘ ";
 
         });

@@ -34,57 +34,6 @@ class ReservationSerializer(serializers.ModelSerializer):
     
 
 class ReservationCreateSerializer(serializers.ModelSerializer):
-<<<<<<< HEAD
-    # on reçoit les PK pour jour, période et bénéficiaire
-    reservant_pour = serializers.PrimaryKeyRelatedField(
-        queryset=Etudiant.objects.all(),
-        help_text="ID de l'étudiant bénéficiaire"
-    )
-    jour           = serializers.PrimaryKeyRelatedField(queryset=Jour.objects.all())
-    periode        = serializers.PrimaryKeyRelatedField(queryset=Periode.objects.all())
-
-    class Meta:
-        model = Reservation
-        fields = ['date', 'heure', 'jour', 'periode', 'reservant_pour']
-
-    def validate(self, attrs):
-        beneficiary = attrs['reservant_pour']
-        d, p = attrs['date'], attrs['periode']
-        # 1) Un seul créneau valide par jour/période/bénéficiaire
-        if Reservation.objects.filter(
-            reservant_pour=beneficiary,
-            date=d,
-            periode=p,
-            statut='VALIDE'
-        ).exists():
-            raise serializers.ValidationError(
-                "Ce bénéficiaire a déjà une réservation valide pour ce jour et cette période."
-            )
-        # 2) Pas de date passée
-        if d < timezone.localdate():
-            raise serializers.ValidationError("Impossible de réserver pour une date passée.")
-        return attrs
-
-    @transaction.atomic
-    def create(self, validated_data):
-        user = self.context['request'].user
-        # 1) création de la réservation
-        res = Reservation.objects.create(
-            initiateur=user,
-            **validated_data
-        )
-        # 2) si l'initiateur est étudiant, on décrémente son quota
-        if user.role == 'ETUDIANT':
-            etu = user.etudiant
-            # on choisit le champ en fonction de la période
-            if res.periode.nomPeriode.lower().startswith('petit'):
-                etu.ticket_quota_80 = F('ticket_quota_80') - 1
-                etu.save(update_fields=['ticket_quota_80'])
-            else:
-                etu.ticket_quota_125 = F('ticket_quota_125') - 1
-                etu.save(update_fields=['ticket_quota_125'])
-        return res
-=======
     # on reçoit les PK, pas les objets nested
     jour            = serializers.PrimaryKeyRelatedField(queryset=Jour.objects.all())
     periode         = serializers.PrimaryKeyRelatedField(queryset=Periode.objects.all())
@@ -141,4 +90,3 @@ class ReservationCreateSerializer(serializers.ModelSerializer):
             )
 
         return attrs
->>>>>>> parent of 23a4dc7c ( Annulation d'une réservation)

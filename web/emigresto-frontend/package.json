@@ -44,11 +44,7 @@
     "jest": "^29.7.0",
     "msw": "^2.8.4",
     "postcss": "^8.5.6",
-<<<<<<< HEAD
-    "tailwindcss": "^4.1.10",
-=======
     "tailwindcss": "^3.4.3",
->>>>>>> parent of 23a4dc7c ( Annulation d'une réservation)
     "vite": "^6.3.5"
   }
 }
